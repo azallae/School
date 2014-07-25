@@ -1,0 +1,17 @@
+package a4;
+
+import a2.Vehicle;
+
+public class Tank extends Vehicle {
+	private int armorStrength;
+	private int missleCount;
+	
+	public Tank() {
+		armorStrength = 10;
+		missleCount = 10;
+	}
+	
+	public void move() {
+		
+	}
+}

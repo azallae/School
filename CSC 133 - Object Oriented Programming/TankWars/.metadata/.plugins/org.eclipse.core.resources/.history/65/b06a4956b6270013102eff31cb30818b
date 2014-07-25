@@ -1,0 +1,13 @@
+package a4;
+
+public class Tree {
+	private int diameter;
+	
+	public Tree(int d) {
+		diameter = d;
+	}
+	
+	private int getDiameter() {
+		return diameter;
+	}
+}

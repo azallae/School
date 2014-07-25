@@ -1,0 +1,11 @@
+package a4;
+
+import a2.Projectile;
+
+public class Missile extends Projectile {
+	private int lifetime;
+	
+	public Missile() {
+		lifetime = 5;
+	}
+}

@@ -1,0 +1,76 @@
+package a1;
+
+import java.util.Scanner;
+
+public class Game {
+	private int tanks, trees, rocks;
+	private GameWorld gw;
+		
+	public Game() {
+		gw = new GameWorld();
+		play();
+	}
+	
+	private void play() {
+		//accept and execute user commands that operate on the GameWorld
+		String cmd = "start";
+		Scanner in = new Scanner(System.in);
+		
+		while (!cmd.equalsIgnoreCase("q")) {
+			System.out.print("Choose an action (? for help): ");			
+			getCommand(in.nextLine());			
+		}
+	}
+	
+	private void getCommand(String cmd) {
+		if (cmd.equalsIgnoreCase("r")) {
+			rightTurn();
+		}
+		else if (cmd.equalsIgnoreCase("l")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("i")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("k")) {
+
+		}
+		else if (cmd.equalsIgnoreCase("f")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("e")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("1")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("2")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("3")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("t")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("d")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("m")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("?")) {
+			
+		}
+		else if (cmd.equalsIgnoreCase("q")) {
+			
+		}
+		else {
+			System.out.println("Command not recognized.");
+		}
+	}
+
+	private void rightTurn() {
+//		gw.playerTank.turn(5);		
+	}
+}

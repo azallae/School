@@ -1,0 +1,5 @@
+package gameObjects.copy;
+
+public class MovableItems {
+
+}

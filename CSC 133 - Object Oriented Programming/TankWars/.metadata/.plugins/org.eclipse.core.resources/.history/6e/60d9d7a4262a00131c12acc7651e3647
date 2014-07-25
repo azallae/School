@@ -1,0 +1,24 @@
+package a4;
+
+import java.awt.Color;
+
+import a2.LandscapeItem;
+
+public class Tree extends LandscapeItem {
+	private int diameter;
+		
+	public Tree(int x, int y, int d) {
+		locX = x;
+		locY = y;
+		diameter = d;
+		myColor = Color.GREEN;
+	}
+	
+	private int getDiameter() {
+		return diameter;
+	}
+	
+	public String toString() {
+		return "Tree: Loc = " + getX() + ", " + getY() + "; Diameter = " + getDiameter() + "; Color = GREEN";
+	}
+}

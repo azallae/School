@@ -1,0 +1,18 @@
+package a4;
+
+import java.awt.Color;
+
+import a2.Projectile;
+
+public class Missile extends Projectile {
+	private int lifetime;
+	
+	public Missile() {
+		lifetime = 5;
+		myColor = Color.BLACK;
+	}
+	
+	public void move() {
+		
+	}	
+}

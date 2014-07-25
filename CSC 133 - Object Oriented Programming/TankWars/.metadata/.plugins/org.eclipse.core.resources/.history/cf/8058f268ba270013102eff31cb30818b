@@ -1,0 +1,7 @@
+package a2;
+
+abstract class MovableItem extends GameObject {
+	private int speed, direction;
+	
+	abstract void move();
+}

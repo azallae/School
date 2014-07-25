@@ -1,0 +1,30 @@
+package a4;
+
+public class Rock {
+	private int width, height;
+	
+	public Rock() {
+		
+	}
+	
+	public Rock(int w, int h) {
+		width = w;
+		height = h;
+	}
+	
+	private int getWidth() {
+		return width;
+	}
+	
+	private int getHeight() {
+		return height;
+	}
+	
+	private void setWidth(int w) {
+		width = w;
+	}
+	
+	private void setHeight(int h) {
+		height = h;
+	}
+}

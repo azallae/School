@@ -1,0 +1,11 @@
+package a2;
+
+import java.awt.Color;
+
+abstract class GameObject {
+	private Color myColor;
+	
+	private Color getColor() {
+		return myColor;
+	}
+}

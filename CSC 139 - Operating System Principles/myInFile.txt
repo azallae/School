@@ -1,0 +1,14 @@
+Well finally we get to use the bounded-buffer producer/consumer 
+approach for some scenario. This programming assignment require you 
+to implement a file copying operation though the approach. 
+Both a producer thread and a consumer thread work with a buffer of 
+12 slots. The producer reads a string of 20-byte at a time from 
+the input file (i.e., this file), and writes it to the next available 
+slot in the buffer in a mutually exclusive manner. The consumer, 
+on the other hand, reads a 20-byte string from the next filled buffer 
+slot, and writes it to the output file such that the output file 
+is a verbatim copy of the input file. Note that the last string 
+of the file copy operation may not be exactly 20-byte long. 
+Semaphores are used to enforce the mutually exclusive access to 
+the buffer and the synchronization conditions between the producer 
+and the consumer threads.

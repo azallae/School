@@ -1,0 +1,133 @@
+package a1;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Random;
+
+import a2.GameObject;
+import a4.*;
+
+public class GameWorld {
+	//hold and manipulate world objects and related game state data
+	private final static int maxWidth = 1023;
+	private final static int maxHeight = 1023;
+	private int livesRemaining = 3;
+	private int elaspedTime = 0;
+	private int currentScore = 0;
+	private List<GameObject> objList = new ArrayList<GameObject>();
+	private Tank playerTank;
+	
+	public GameWorld() {		
+		setupWorld();
+	}
+	
+	public static int getMaxWidth() {
+		return maxWidth;
+	}
+	
+	public static int getMaxHeight() {
+		return maxHeight;
+	}	
+	
+	public int getLivesRemaining() {
+		return livesRemaining;
+	}
+
+	public void setLivesRemaining(int livesRemaining) {
+		this.livesRemaining = livesRemaining;
+	}
+
+	public int getElaspedTime() {
+		return elaspedTime;
+	}
+
+	public void setElaspedTime(int elaspedTime) {
+		this.elaspedTime = elaspedTime;
+	}
+
+	public int getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore) {
+		this.currentScore = currentScore;
+	}
+
+	private void setupWorld() {
+		Scanner in = new Scanner(System.in);
+		int tanks, trees, rocks;
+		
+		System.out.print("How many enemy tanks do you want? ");
+		while(!in.hasNextInt()) {			
+			System.out.println("That is not a valid Integer. Please try again.");
+			System.out.print("How many enemy tanks do you want? ");
+			in.next();
+		}
+		tanks = in.nextInt();
+		
+		System.out.print("How many trees do you want? ");
+		while(!in.hasNextInt()) {			
+			System.out.println("That is not a valid Integer. Please try again.");
+			System.out.print("How many trees do you want? ");
+			in.next();
+		}
+		trees = in.nextInt();
+		
+		System.out.print("How many rocks do you want? ");
+		while(!in.hasNextInt()) {			
+			System.out.println("That is not a valid Integer. Please try again.");
+			System.out.print("How many rocks do you want? ");
+			in.next();
+		}
+		rocks = in.nextInt();
+		
+		populateWorld(tanks, trees, rocks);
+	}
+
+	private void populateWorld(int tanks, int trees, int rocks) {
+		Random rnd = new Random();
+		playerTank = new Tank(rnd.nextInt(maxWidth + 1), rnd.nextInt(maxHeight + 1));
+		objList.add(playerTank);
+		
+		while (tanks > 0) {
+			//make tanks
+			Tank t = new Tank(rnd.nextInt(maxWidth + 1), rnd.nextInt(maxHeight + 1));
+			objList.add(t);
+			tanks--;
+		}
+		while (trees > 0) {
+			//make trees
+			int diameter = 0;
+			while (diameter == 0) {
+				diameter = rnd.nextInt(21);
+			}
+			Tree t = new Tree(rnd.nextInt(maxWidth + 1), rnd.nextInt(maxHeight + 1), diameter);
+			objList.add(t);
+			trees--;
+		}
+		while (rocks > 0) {
+			//make rocks
+			int width = 0;
+			while (width == 0) {
+				width = rnd.nextInt(21);
+			}
+			int height = 0;
+			while (height == 0) {
+				height = rnd.nextInt(21);
+			}
+			Rock r = new Rock(rnd.nextInt(maxWidth + 1), rnd.nextInt(maxHeight + 1), width, height);
+			objList.add(r);
+			rocks--;
+		}
+		System.out.println("Player's Tank is first tank: " + objList.toString() + "\n");
+	}
+	
+	public void removeObject(GameObject gObj) {
+		objList.remove(gObj);
+	}
+	
+	public void respawn() {
+		
+	}
+}

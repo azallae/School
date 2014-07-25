@@ -1,0 +1,276 @@
+********  TWO PLAYER GAMES - "Refusal" ********
+
+One of the great enthusiasts of board games, particularly variants of chess,
+is a professor of mathematics at the University of Kansas named Fred Galvin.
+Dr. Galvin is a noted expert on set theory and combinatorics, credited
+with having proven an important property related to graph coloring known as
+Dinitz' Conjecture.  He is also an expert level tournament chess player,
+and in this area is perhaps best known for both inventing, and excelling at,
+variants of chess.  In 1996 he won the world "progressive" chess championship,
+one of the first international board game world championships conducted
+entirely over the internet.
+
+In the late 1950s, Dr. Galvin invented an intriguing variants of chess
+called "Refusal Chess" (and a similar variant called "Comprimise Chess").
+For this year's two-player game assignment, we are going to implement a brand
+new board game created just for you, that we will call simply "Refusal", based
+on Dr. Galvin's original game.  In our version, the rules are simpler than for
+regular chess, but the "refusal" aspect is virtually identical.
+
+"Refusal" is a board game very similar to chess, in which players take turns
+moving a piece, and attempting to capture the opponent's king.  However, at
+each turn, after you make a move, your opponent has the opportunity to
+"refuse" your move, in which case you must retract your move and play a
+different move.  That move must be accepted.  In other words, both players
+have the option of rejecting their opponent's moves - but only once per turn.
+
+You will each write a program that can play "Refusal" against a human opponent.
+The game and the program requirements are detailed below.
+
+
+THE GAME
+
+"Refusal" is a chess-like game in which each player takes turns moving
+one of his/her pieces, and tries to capture the opponent's King.  It is played
+on a 5x8 board, and each side starts with a set of pieces consisting of
+1 king, 2 knights, 2 rooks, and 3 pawns.  Rooks come in two flavors:
+"left" rooks, and "right" rooks.  The different pieces have rules about
+how they can move, which is described later.
+
+Players alternate moves, moving one of their own pieces each turn.
+When it is your turn, you MUST make a move -- you cannot pass.
+If it is your turn and you have no legal moves, you lose.
+
+After making a turn, your opponent has the right to either "refuse" or "accept"
+your move.  If he/she "accepts" your move, you must play it and then it is
+the opponent's turn.  If he/she "refuses" your move, you must take your move back
+and play an alternate move.  If you don't have a second legal move, then you
+automatically lose.  After playing your alternate move, the opponent must accept it.
+
+Similarly, after your opponent moves, you have the option of refusing it in
+the same manner.
+
+A player wins either when he/she captures the opponents' king,
+or if it is the opponent's turn but he/she has no legal moves.
+
+The initial position is:
+
+        R - - K L
+        - - - - -
+        N P P P N
+        - - - - -
+        - - - - -
+        n p p p n
+        - - - - -
+        r k - - l
+
+   K,N,P,L,R are the computer's king, knights, pawns, left rooks, and right rooks
+      (moving DOWN the board).
+
+   k,n,p,l,r are the human's king, knights, pawns, left rooks, and right rooks
+      (moving UP the board).
+
+The pieces move as follows:
+
+PAWNS
+-- can move forward one square if that square is empty.
+    That is, they move similarly as in regular Western chess.
+-- can move forward one diagonal square if it is occupied by an opponent's piece.
+    That is, pawns "capture" similarly as in regular Western chess.
+-- when they reach the back row, they are stuck and can never move again.
+
+KNIGHTS
+-- move similarly to the "knight" in regular (western) chess. That is, vertically
+    1 or 2 squares, then horizontally 2 or 1 squares, respectively.  For example,
+    a knight may move forward 1 square, then turn right and move 2 squares.
+-- may move either onto an empty square, or onto a square occupied by an
+    opponent's piece (thus capturing it).
+-- can never move backwards.
+-- Knights can "jump over" other pieces.  That is, although the destination
+    square needs to be available, the intervening squares can be occupied.
+-- when they reach the back row, they are stuck and can never move again.
+
+ROOKS
+-- move very similarly as the "rook" in regular (western) chess.
+    That is, they move any number of squares in a horizontal or vertical line.
+-- may move either onto an empty square, or onto a square occupied by an
+    opponent's piece (thus capturing it).
+-- a rook CANNOT jump over other pieces.  Once it bumps into a piece of
+    it's own, or captures an opposing piece, that is as far as it can go.
+-- Can only move forwards or sideways, never backwards.
+-- There are two types of rooks:
+    > a "left" rook can only move forward, or to the left.  Never to the right.
+    > a "right" rook can only move forward, or to the right.  Never to the left.
+   Upon reaching the back row, a "left" rook becomes a "right" rook.
+   Upon reaching the back row, a "right" rook becomes a "left" rook.
+
+KINGS
+-- can only move horizontally (like a left or right rook, but never forward).
+-- therefore, it is confined to its original row.
+-- can ONLY move if that move is a capture of an opposing piece.
+-- a king CANNOT jump over other pieces.  That is, if there is an intervening
+    friendly piece between it and an opposing piece, the king cannot make the capture.
+-- if your king is captured, you lose!
+
+
+OTHER DETAILS - 
+-- note that it isn't illegal for a king to be left "in check".
+    Victory doesn't happen until the king is actually captured.
+-- Also, note that a king cannot flee from being attacked, unless
+    it can move by capturing some opposing piece.
+-- moving is compulsory.  That is, a player cannot "pass".
+-- unlike chess, inability to move isn't a stalemate draw - it is a LOSS.
+-- unlike chess, pawns don't have a "two move" option.
+-- unlike Go (Weiqi), players don't place pieces on the board.
+    The pieces are on the board at the beginning, and are moved or captured.
+-- you are never allowed to capture your own pieces, only your opponent's pieces.
+
+
+THE PROGRAM
+
+Your program is one player, and will attempt to defeat the human operator.
+It must fulfill the following requirements:
+
+1. It first asks the human whether he/she wants to move first or second.
+
+2. The current position is displayed on the screen before and after each
+   move, with the axes labeled as in the following example:
+
+      8  R - - K L   computer
+      7  - - - - - 
+      6  N P P - N 
+      5  - - - P - 
+      4  - - n - - 
+      3  n p p p - 
+      2  - - - - - 
+      1  r k - - l   human
+         ---------
+         A B C D E
+
+   You are encouraged to make minor modifications to the display if you think
+   it is easier to see (or more fun) with different characters for the pieces.
+   If you want to make a graphical user interface, that's even better (although
+   you won't get extra credit for it).  But whatever you do, the axes MUST be
+   labeled, with row numbers and column letters, EXACTLY in the above manner. 
+
+   (If, like me, you use simple "ascii" output to System.out, as shown above, you
+    will probably find it a LOT easier to see the position if you use different
+    colors for the human's pieces versus the computer's pieces.  This is actually
+    very easy to do in Java with ansi escape sequences, and your instructor will
+    post the relevant code.  You are encouraged to add it to your program's display.)
+
+3. The human enters moves using the notation above, for the FROM square
+   followed by the TO square.  For instance, in the position above,
+   the human could use the knight on C4 to capture the computer's pawn on B6,
+   and the move would be entered as follows: C4B6 (no spaces).   Of course,
+   capturing is not compulsary, so there are many other possible legal moves,
+   such as B3B4, C4E5, A1B1, E1E4, etc.
+
+4. When your program makes a move, it must do so according to the following steps:
+
+   (a) It can think for up to 5 seconds to decide what move to play,
+   (b) It then displays its move using the same notation as described in #3 above,
+   (c) It then prompts the opponent to "Accept" or "Reject" the move.
+   (c) If the opponent "accepts", your program must play the move AND display
+        the resulting new position. OR...
+   (d) If the opponent "rejects" the move, your program must IMMEDIATELY display
+        and then play a DIFFERENT move, and display the resulting new position.
+
+   If the opponent rejects your program's move, and your program has no legal
+   second move, then it must announce that it has lost the game.
+
+5. The program must detect when the game has ended, i.e. when a king has
+   has been captured, or if a player has no legal moves and has thus lost.
+   It should correctly announce when it has won, and should also correctly
+   announce when the human has won.  If should also correctly detect when a
+   game is lost because a move was refused and there was no legal alternate
+   move available.
+  
+6. The program must never play an illegal move.
+
+7. The program should detect when an illegal move has been entered
+   and require the human to re-enter a valid move. 
+
+8. The program must make each of it's moves in 5 seconds or less.
+   If it's move is refused, it does NOT have 5 more seconds to think of a
+   second move -- that is, it must use the 5 seconds to prepare TWO moves,
+   the "primary" move and an "alternate" in case the primary move is rejected.
+
+9. When the human opponent enters his/her move, your program has the option of
+   "accepting" or "refusing" that move.  If your program "accepts" the move,
+   it must make that move on the board and display the new position before
+   starting to think about its own move.
+
+   If your program "refuses" the opponent's move, it must allow the human to
+   re-enter a different move.  (If the human has no other legal moves, your
+   program should announce that it has won the game for that reason).  After
+   accepting the human's second move, it must make that move on the board and
+   display the new position before starting to think about its own move.
+
+10. Your program must decide whether to accept or reject the opponent's move
+   IMMEDIATELY.  That is, it cannot spend time thinking about it.  We will
+   discuss in class how to achieve this.
+
+11. The program should be sufficiently bug-free to play through an entire
+   game without ever crashing.  Memory-leaks can cause these kinds of
+   programs to fail late in the game, so test your program on several
+   complete games, to be sure it is reliable through a whole game.
+
+12. Your program must run on a CAMPUS workstation.  For the tournament,
+   you must run on a campus workstation, not your own.  If you have
+   unique requirements, please make arrangements with me beforehand.
+   ANY CAMPUS workstation reachable from the lab machines in 5029 is ok.
+
+
+STRATEGY AND OTHER REQUIREMENTS
+
+1. To get FULL credit, your program must satisfy the requirements listed
+   above, and also MUST use minimax search, at least 4 plies deep, with
+   alpha-beta pruning (correctly), to determine the computer's moves.
+   Refrain from trying to find a simple closed-form solution to the game,
+   as that would defeat the purpose of the assignment.
+
+2. You can use any programming language you want.  Any compiled
+   language that generates efficient code, such as C, C++, or even
+   Pascal or Fortran, are good choices.  You can also use Java, C#,
+   Python, Ruby, Perl, BASIC, Smalltalk, Scheme, LISP, Clojure, or
+   other interpreted languages, but don't be surprised if your code
+   searches 1 or 2 plies less than those written in C or C++.
+   If you want to use a language other than one of the ones mentioned
+   here, please see me first.
+
+3. You can decide whether you want to do a deep selective search, or a
+   more shallow but exhaustive (full-width) search.  Most programs like
+   this perform better with exhaustive search, because a selective search
+   would require an excellent heuristic to choose which moves to discard
+   -- otherwise it would risk failing to consider important possibilities.
+
+
+TOURNAMENT
+
+After the due date, we will have a "fun" tournament, in which your programs
+will play against each other.  This will give us a chance to compare the 
+various strategies we used.  The tournament will be much more fun if you come
+up with a name for your program.  In fact, that is a requirement!
+Your instructor has already finished his program, and has named it "The DECIDER",
+The DECIDER is pretty strong, but beatable.
+
+Submit your solution (the code) to your instructor using SacCT.  The code
+should be included in a ZIP file, along with a 2-3 page text file describing
+the following:
+
+      a. instructions on how to install and run your program
+      b. which techniques you used (alpha-beta, iterative deepening, history tables, etc.)
+      c. how deep it typically searches (how many plies)
+      d. how strong you think it is -
+          - be specific (can it beat you?  has it played any of the other programs?)
+      e. anything unusual or unique about your program
+      f. anything interesting that you included in your heuristic(s)
+      g. any bugs you are aware of that cause it to crash or make illegal moves?
+      h. any bugs you are aware of that cause it to play poorly?
+      i. a brief explanation of your program's strategy for handling
+           the "refusal" feature of the game.
+
+As the date of the tournament gets closer, your instructor will provide
+another handout with some very minor additional requirements that will help
+make the tournament run smoothly.

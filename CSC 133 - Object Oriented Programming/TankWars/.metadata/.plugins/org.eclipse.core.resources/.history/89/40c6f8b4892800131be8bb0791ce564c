@@ -1,0 +1,141 @@
+package a1;
+
+import java.util.Scanner;
+
+public class Game {
+	private GameWorld gw;
+		
+	public Game() {
+		gw = new GameWorld();
+		play();
+	}
+	
+	private void play() {
+		//accept and execute user commands that operate on the GameWorld
+		Scanner in = new Scanner(System.in);
+		String cmd;
+		
+		do {
+			System.out.print("Choose an action (? for help): ");
+			cmd = in.nextLine();
+		} while (getCommand(cmd));
+		
+		System.exit(0);
+	}
+	
+	private boolean getCommand(String cmd) {
+		if (cmd.equalsIgnoreCase("r")) {
+			rightTurn();
+		}
+		else if (cmd.equalsIgnoreCase("l")) {
+			leftTurn();
+		}
+		else if (cmd.equalsIgnoreCase("i")) {
+			incSpeed();
+		}
+		else if (cmd.equalsIgnoreCase("k")) {
+			decSpeed();
+		}
+		else if (cmd.equalsIgnoreCase("f")) {
+			firePlayerMissile();
+		}
+		else if (cmd.equalsIgnoreCase("e")) {
+			fireEnemyMissile();
+		}
+		else if (cmd.equalsIgnoreCase("1")) {
+			return hitTank();
+		}
+		else if (cmd.equalsIgnoreCase("2")) {
+			missileCollision();
+		}
+		else if (cmd.equalsIgnoreCase("3")) {
+			collide();
+		}
+		else if (cmd.equalsIgnoreCase("t")) {
+			elaspeTime();
+		}
+		else if (cmd.equalsIgnoreCase("d")) {
+			displayStates();
+		}
+		else if (cmd.equalsIgnoreCase("m")) {
+			showMap();
+		}
+		else if (cmd.equalsIgnoreCase("?")) {
+			help();
+		}
+		else if (cmd.equalsIgnoreCase("q")) {
+			return validateQuit();
+		}
+		else {
+			System.out.println("Command not recognized.");
+		}
+		return true;
+	}
+
+	private void rightTurn() {
+		gw.getPlayerTank().rightTurn();		
+	}
+
+	private void leftTurn() {
+		gw.getPlayerTank().leftTurn();
+	}
+
+	private void incSpeed() {
+		gw.getPlayerTank().incSpeed(1);		
+	}
+
+	private void decSpeed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void firePlayerMissile() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void fireEnemyMissile() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private boolean hitTank() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private void missileCollision() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void collide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void elaspeTime() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void displayStates() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void showMap() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void help() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private boolean validateQuit() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}

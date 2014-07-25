@@ -1,0 +1,27 @@
+package a4;
+
+import java.awt.Color;
+
+import a2.Vehicle;
+
+public class Tank extends Vehicle {
+	private int armorStrength;
+	private int missleCount;
+	
+	public Tank() {
+		armorStrength = 10;
+		missleCount = 10;
+		myColor = Color.CYAN;
+	}
+	
+	public void move() {
+		
+	}
+	
+	private void hit() {
+		armorStrength--;
+		if (armorStrength == 0) {
+			removeSelf();
+		}
+	}
+}

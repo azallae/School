@@ -1,0 +1,1 @@
+the protocol is needed to determine when service continues and when it is stopped.

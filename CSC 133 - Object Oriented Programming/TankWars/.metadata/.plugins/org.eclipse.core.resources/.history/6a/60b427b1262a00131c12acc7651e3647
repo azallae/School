@@ -1,0 +1,34 @@
+package a1;
+
+import java.awt.Color;
+
+import a2.Projectile;
+
+public class Missile extends Projectile {
+	private int lifetime;
+	
+	public Missile(int x, int y, int tankSpeed, int tankDirection) {
+		locX = x;
+		locY = y;
+		lifetime = 5;
+		myColor = Color.BLACK;
+		currSpeed = tankSpeed + 5;
+		currDirection = tankDirection;
+	}
+	
+	public int getLifetime() {
+		return lifetime;
+	}
+	
+	public boolean decLifetime() {
+		if (lifetime > 1) {
+			lifetime--;
+			return false;
+		}
+		return true;
+	}
+	
+	public String toString() {
+		return "Missile: Loc = " + getX() + ", " + getY() + "; Time left = " + getLifetime() + "; Speed = " + getSpeed() + "; Direction = " + getDirection() + "; Color = BLACK";
+	}
+}

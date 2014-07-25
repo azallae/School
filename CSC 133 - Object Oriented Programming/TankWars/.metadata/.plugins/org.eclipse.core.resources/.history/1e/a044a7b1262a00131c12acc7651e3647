@@ -1,0 +1,22 @@
+package a2;
+
+public class Projectile extends MovableItem {
+	public void setSpeed(int speed) {
+		this.currSpeed = speed;
+	}
+	
+	public void incSpeed(int inc) {
+		setSpeed(getSpeed() + inc);
+	}
+	
+	public void decSpeed(int inc) {
+		int speed = getSpeed() - inc;
+		
+		if (speed < 0) {
+			setSpeed(0);
+		}
+		else {
+			setSpeed(speed);
+		}		
+	}
+}

@@ -1,0 +1,5 @@
+This is my file.
+It is a test file for prog3.c. It must be waaaaaay bigger than this, so I am writing a bunch
+
+of junk and formatting it strangely. Hopefully my program works, because I have been doing waaaaaay too much schoolwork ever since spring break started.
+This should conclude the text file. Good luck, outfile! Thanks for reading my infile.

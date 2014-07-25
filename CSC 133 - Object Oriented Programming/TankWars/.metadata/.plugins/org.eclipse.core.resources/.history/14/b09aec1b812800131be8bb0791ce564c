@@ -1,0 +1,20 @@
+package a2;
+
+import java.awt.Color;
+
+public abstract class GameObject {
+	protected Color myColor;
+	protected int locX, locY;
+	
+	public Color getColor() {
+		return myColor;
+	}
+	
+	public int getX() {
+		return locX;
+	}
+	
+	public int getY() {
+		return locY;
+	}
+}

@@ -1,0 +1,27 @@
+package a4;
+
+import java.awt.Color;
+
+import a2.Projectile;
+
+public class Missile extends Projectile {
+	private int lifetime;
+	
+	public Missile(int x, int y, int speed, int direction) {
+		setLifetime(5);
+		setSpeed(speed + 5);
+		myColor = Color.BLACK;
+	}
+	
+	public int getLifetime() {
+		return lifetime;
+	}
+	
+	public void setLifetime(int lt) {
+		this.lifetime = lt;
+	}
+	
+	public String toString() {
+		return "\nMissile: Loc = " + getX() + ", " + getY() + "; Time left = " + getLifetime() + "; Speed = " + getSpeed() + "; Direction = " + getDirection() + "; Color = BLACK";
+	}
+}

@@ -1,0 +1,166 @@
+package a1;
+
+import java.util.Scanner;
+
+public class Game {
+	private GameWorld gw;
+	private Scanner in = new Scanner(System.in);
+		
+	public Game() {
+		gw = new GameWorld();
+		play();
+	}
+	
+	private void play() {
+		//accept and execute user commands that operate on the GameWorld
+		String cmd;
+		
+		do {
+			System.out.print("Choose an action (? for help): ");
+			cmd = in.nextLine();
+		} while (getCommand(cmd));
+		
+		System.exit(0);
+	}
+	
+	private boolean getCommand(String cmd) {
+		if (cmd.equalsIgnoreCase("r")) {
+			rightTurn();
+		}
+		else if (cmd.equalsIgnoreCase("l")) {
+			leftTurn();
+		}
+		else if (cmd.equalsIgnoreCase("i")) {
+			incSpeed();
+		}
+		else if (cmd.equalsIgnoreCase("k")) {
+			decSpeed();
+		}
+		else if (cmd.equalsIgnoreCase("f")) {
+			firePlayerMissile();
+		}
+		else if (cmd.equalsIgnoreCase("e")) {
+			fireEnemyMissile();
+		}
+		else if (cmd.equalsIgnoreCase("1")) {
+			hitByMissile();
+		}
+		else if (cmd.equalsIgnoreCase("2")) {
+			missileCollision();
+		}
+		else if (cmd.equalsIgnoreCase("3")) {
+			collide();
+		}
+		else if (cmd.equalsIgnoreCase("t")) {
+			elaspeTime();
+		}
+		else if (cmd.equalsIgnoreCase("d")) {
+			displayStates();
+		}
+		else if (cmd.equalsIgnoreCase("m")) {
+			showMap();
+		}
+		else if (cmd.equalsIgnoreCase("?")) {
+			help();
+		}
+		else if (cmd.equalsIgnoreCase("q")) {
+			return validateQuit();
+		}
+		else {
+			System.out.println("Command not recognized.");
+		}
+		return true;
+	}
+
+	private void rightTurn() {
+		gw.getPlayerTank().rightTurn();	
+		System.out.println("Your tank is now has a heading of " + getDirection());
+	}
+
+	private void leftTurn() {
+		gw.getPlayerTank().leftTurn();
+		System.out.println("Your tank is now has a heading of " + getDirection());
+	}
+
+	private void incSpeed() {
+		gw.getPlayerTank().incSpeed(1);	
+		System.out.println("Your tank's speed is now " + gw.getPlayerTank().getSpeed());
+	}
+
+	private void decSpeed() {
+		gw.getPlayerTank().decSpeed(1);	
+	}
+
+	private void firePlayerMissile() {		
+		if (gw.getPlayerTank().fireMissile()) {
+			gw.makeMissile(gw.getPlayerTank());
+		}
+		else {
+			System.out.println("Your tank is out of missiles!");
+		}
+	}
+
+	private void fireEnemyMissile() {
+		int rndTank = 0;
+		while (rndTank == 0) {
+			rndTank = gw.getRandomTankNumber();
+		}
+		
+		if (gw.getTankList().get(rndTank).fireMissile()) {
+			gw.makeMissile(gw.getTankList().get(rndTank));
+		}
+		else {
+			System.out.println("The selected tank is out of missiles!");
+		}
+	}
+
+	private void hitByMissile() {
+		if (gw.getMissileList().isEmpty()) {
+			System.out.println("There are no current missiles. Command ignored.");
+		}
+		else {
+			gw.removeObject(gw.getRandomMissile());			
+			gw.hitTank("missile");
+		}
+	}
+
+	private void missileCollision() {
+		if (gw.getMissileList().size() < 2) {
+			System.out.println("Not enough missiles for a collision. Command ignored.");
+		}
+		else {
+			gw.removeObject(gw.getRandomMissile());
+			gw.removeObject(gw.getRandomMissile());
+		}
+	}
+
+	private void collide() {
+		int rndTank = gw.getRandomTankNumber();
+		gw.getTankList().get(rndTank).setBlocked(true);
+	}
+
+	private void elaspeTime() {
+		gw.tickTock();
+	}
+
+	private void displayStates() {
+		System.out.println("Elapsed Time = " + gw.getElaspedTime() + "\nCurrent Score = " + gw.getCurrentScore() + "\nLives Remaining = " + gw.getLivesRemaining());
+	}
+
+	private void showMap() {
+		gw.displayMap();
+	}
+
+	private void help() {
+		//help messages
+	}
+
+	private boolean validateQuit() {
+		System.out.print("Are you sure that you want to end this game and exit? (y/n) ");
+		String yesOrNo = in.nextLine();
+		if (yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("yes")) {
+			return false;
+		}
+		return true;
+	}
+}

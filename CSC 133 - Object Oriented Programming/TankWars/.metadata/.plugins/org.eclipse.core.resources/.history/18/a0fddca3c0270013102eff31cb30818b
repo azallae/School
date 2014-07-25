@@ -1,0 +1,15 @@
+package a4;
+
+import a2.LandscapeItem;
+
+public class Tree extends LandscapeItem {
+	private int diameter;
+	
+	public Tree(int d) {
+		diameter = d;
+	}
+	
+	private int getDiameter() {
+		return diameter;
+	}
+}

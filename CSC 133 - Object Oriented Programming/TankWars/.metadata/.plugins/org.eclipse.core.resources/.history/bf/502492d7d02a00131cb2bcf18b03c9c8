@@ -1,0 +1,242 @@
+package a1;
+
+import java.util.Scanner;
+
+public class Game {
+	private GameWorld gw;
+	private Scanner in = new Scanner(System.in);
+		
+	public Game() {
+		gw = new GameWorld();
+		play();
+	}
+	
+	private void play() {
+		//accept and execute user commands that operate on the GameWorld
+		String cmd;
+		
+		do {
+			System.out.print("Choose an action (? for help): ");
+			cmd = in.nextLine();
+		} while (getCommand(cmd));
+		
+		System.exit(0);
+	}
+	
+	private boolean getCommand(String cmd) {
+		if (cmd.equalsIgnoreCase("r")) {
+			rightTurn();
+		}
+		else if (cmd.equalsIgnoreCase("l")) {
+			leftTurn();
+		}
+		else if (cmd.equalsIgnoreCase("i")) {
+			incSpeed();
+		}
+		else if (cmd.equalsIgnoreCase("k")) {
+			decSpeed();
+		}
+		else if (cmd.equalsIgnoreCase("f")) {
+			firePlayerMissile();
+		}
+		else if (cmd.equalsIgnoreCase("e")) {
+			fireEnemyMissile();
+		}
+		else if (cmd.equalsIgnoreCase("1")) {
+			hitByMissile();
+		}
+		else if (cmd.equalsIgnoreCase("2")) {
+			missileCollision();
+		}
+		else if (cmd.equalsIgnoreCase("3")) {
+			tankCollision();
+		}
+		else if (cmd.equalsIgnoreCase("t")) {
+			elaspeTime();
+		}
+		else if (cmd.equalsIgnoreCase("d")) {
+			displayStates();
+		}
+		else if (cmd.equalsIgnoreCase("m")) {
+			showMap();
+		}
+		else if (cmd.equalsIgnoreCase("?")) {
+			help();
+		}
+		else if (cmd.equalsIgnoreCase("q")) {
+			return validateQuit();
+		}
+		else {
+			System.out.println("Command not recognized.");
+		}
+		return true;
+	}
+
+	private void rightTurn() {
+		gw.rightTurn();
+		
+		
+		
+		
+		gw.getPlayerTank().rightTurn();	
+		System.out.println("Your tank is now has a heading of " + gw.getPlayerTank().getDirection());
+	}
+
+	private void leftTurn() {
+		gw.leftTurn();
+		
+		
+		
+		
+		gw.getPlayerTank().leftTurn();
+		System.out.println("Your tank is now has a heading of " + gw.getPlayerTank().getDirection());
+	}
+
+	private void incSpeed() {
+		gw.incSpeed();
+		
+		
+		
+		gw.getPlayerTank().incSpeed(1);	
+		System.out.println("Your tank's speed is now " + gw.getPlayerTank().getSpeed());
+	}
+
+	private void decSpeed() {
+		gw.decSpeed();
+		
+		
+		
+		
+		gw.getPlayerTank().decSpeed(1);
+		System.out.println("Your tank's speed is now " + gw.getPlayerTank().getSpeed());
+	}
+
+	private void firePlayerMissile() {	
+		gw.firePlayerMissile();
+		
+		
+		
+		if (gw.getPlayerTank().fireMissile()) {
+			gw.makeMissile(gw.getPlayerTank());
+			System.out.println("Missile launched!");
+		}
+		else {
+			System.out.println("Your tank is out of missiles!");
+		}
+	}
+
+	private void fireEnemyMissile() {
+		gw.fireEnemyMissile();
+		
+		
+		
+		
+		int rndTank = 0;
+		while (rndTank == 0) {
+			rndTank = gw.getRandomTankNumber();
+		}
+		
+		if (gw.getTankList().get(rndTank).fireMissile()) {
+			gw.makeMissile(gw.getTankList().get(rndTank));
+			System.out.println("The enemy has launched a missile!");
+		}
+		else {
+			System.out.println("The selected enemy tank is out of missiles!");
+		}
+	}
+
+	private void hitByMissile() {
+		gw.hitByMissile();
+		
+		
+		
+		
+		if (gw.getMissileList().isEmpty()) {
+			System.out.println("There are no current missiles. Command ignored.");
+		}
+		else {
+			gw.removeObject(gw.getRandomMissile());			
+			gw.hitTank("missile");
+		}
+	}
+
+	private void missileCollision() {
+		gw.missileCollision();
+		
+		
+		
+		
+		
+		if (gw.getMissileList().size() < 2) {
+			System.out.println("Not enough missiles for a collision. Command ignored.");
+		}
+		else {
+			gw.removeObject(gw.getRandomMissile());
+			gw.removeObject(gw.getRandomMissile());
+			System.out.println("Two missiles have collided and have been destroyed!");
+		}
+	}
+
+	private void tankCollision() {
+		gw.tankCollision();
+		
+		
+		
+		
+		
+		int rndTank = gw.getRandomTankNumber();
+		gw.getTankList().get(rndTank).setBlocked(true);
+		if (rndTank == 0) {
+			System.out.println("Your tank has collided with another object and cannot move!");
+		} 
+		else {
+			System.out.println("An enemy tank has collided with another object and cannot move!");
+		}
+	}
+
+	private void elaspeTime() {
+		gw.elapseTime();
+		
+		
+		
+		gw.tickTock();
+		System.out.println("Time has moved forward. " + gw.getElaspedTime() + " cycles has elapsed.");
+	}
+
+	private void displayStates() {
+		
+		
+		System.out.println("Elapsed Time = " + gw.getElaspedTime() + "\nCurrent Score = " + gw.getCurrentScore() + "\nLives Remaining = " + gw.getLivesRemaining());
+	}
+
+	private void showMap() {
+		gw.showMap();
+	}
+
+	private void help() {
+		//help messages
+		System.out.println("'r' (right turn) - turns your tank 5 degrees clockwise");
+		System.out.println("'l' (left turn) - turns your tank 5 degrees counter-clockwise");
+		System.out.println("'i' (increase speed) - increases your tank's speed by one unit");
+		System.out.println("'k' (decrease speed) - slows down your tank by one unit");
+		System.out.println("'f' (fire missile) - fires one of the your tank's missiles, if you have any remaining");
+		System.out.println("'e' (enemy missile) - causes an enemy tank to fire a missile");
+		System.out.println("'1' (missile hit) - causes a tank to be hit by a missile, which can result in tank destruction or armor reduction");
+		System.out.println("'2' (missile collision) - causes two missiles to collide and destroy each other");
+		System.out.println("'3' (tank collision) - causes a tank to collide with an object, blocking it from movement until the tank changes its direction");
+		System.out.println("'t' (clock tick) - moves the game clock (aka Elasped Time) one tick forward");
+		System.out.println("'d' (display) - displays the Current Score, Lives Remaining, and Elasped Time");
+		System.out.println("'m' (map) - outputs a map of the world with object locations");
+		System.out.println("'?' (help) - displays this help screen");
+		System.out.println("'q' (quit) - endds the game and exits the program");
+	}
+
+	private boolean validateQuit() {
+		System.out.print("Are you sure that you want to end this game and exit? (y/n) ");
+		String yesOrNo = in.nextLine();
+		if (yesOrNo.equalsIgnoreCase("y") || yesOrNo.equalsIgnoreCase("yes")) {
+			return false;
+		}
+		return true;
+	}
+}

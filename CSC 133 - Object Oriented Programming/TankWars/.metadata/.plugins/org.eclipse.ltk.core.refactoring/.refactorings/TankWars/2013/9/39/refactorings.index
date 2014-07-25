@@ -1,0 +1,22 @@
+1379820377128	Delete element
+1379820404991	Move compilation unit
+1379820408460	Move compilation unit
+1379820410132	Move compilation unit
+1380054110038	Move compilation unit
+1380054131045	Copy package
+1380054138351	Delete element
+1380054361420	Move compilation units
+1380054371102	Move compilation units
+1380054380440	Delete element
+1380054384792	Delete element
+1380216870373	Rename type 'GameObjects'
+1380216884397	Rename type 'LandscapeItems'
+1380216909124	Rename type 'MovableItems'
+1380216915816	Rename type 'Projectiles'
+1380216920480	Rename type 'Vehicles'
+1380321633058	Encapsulate field 'speed'
+1380321643263	Encapsulate field 'direction'
+1380334502495	Encapsulate field 'livesRemaining'
+1380334510054	Encapsulate field 'elaspedTime'
+1380334515791	Encapsulate field 'currentScore'
+1380402897760	Encapsulate field 'playerTank'

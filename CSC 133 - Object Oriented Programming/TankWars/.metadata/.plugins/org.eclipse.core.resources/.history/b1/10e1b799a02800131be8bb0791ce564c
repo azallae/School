@@ -1,0 +1,162 @@
+package a1;
+
+import java.util.Scanner;
+
+public class Game {
+	private GameWorld gw;
+		
+	public Game() {
+		gw = new GameWorld();
+		play();
+	}
+	
+	private void play() {
+		//accept and execute user commands that operate on the GameWorld
+		Scanner in = new Scanner(System.in);
+		String cmd;
+		
+		do {
+			System.out.print("Choose an action (? for help): ");
+			cmd = in.nextLine();
+		} while (getCommand(cmd));
+		
+		System.exit(0);
+	}
+	
+	private boolean getCommand(String cmd) {
+		if (cmd.equalsIgnoreCase("r")) {
+			rightTurn();
+		}
+		else if (cmd.equalsIgnoreCase("l")) {
+			leftTurn();
+		}
+		else if (cmd.equalsIgnoreCase("i")) {
+			incSpeed();
+		}
+		else if (cmd.equalsIgnoreCase("k")) {
+			decSpeed();
+		}
+		else if (cmd.equalsIgnoreCase("f")) {
+			firePlayerMissile();
+		}
+		else if (cmd.equalsIgnoreCase("e")) {
+			fireEnemyMissile();
+		}
+		else if (cmd.equalsIgnoreCase("1")) {
+			hitByMissile();
+		}
+		else if (cmd.equalsIgnoreCase("2")) {
+			missileCollision();
+		}
+		else if (cmd.equalsIgnoreCase("3")) {
+			collide();
+		}
+		else if (cmd.equalsIgnoreCase("t")) {
+			elaspeTime();
+		}
+		else if (cmd.equalsIgnoreCase("d")) {
+			displayStates();
+		}
+		else if (cmd.equalsIgnoreCase("m")) {
+			showMap();
+		}
+		else if (cmd.equalsIgnoreCase("?")) {
+			help();
+		}
+		else if (cmd.equalsIgnoreCase("q")) {
+			return validateQuit();
+		}
+		else {
+			System.out.println("Command not recognized.");
+		}
+		return true;
+	}
+
+	private void rightTurn() {
+		gw.getPlayerTank().rightTurn();		
+	}
+
+	private void leftTurn() {
+		gw.getPlayerTank().leftTurn();
+	}
+
+	private void incSpeed() {
+		gw.getPlayerTank().incSpeed(1);		
+	}
+
+	private void decSpeed() {
+		gw.getPlayerTank().decSpeed(1);	
+	}
+
+	private void firePlayerMissile() {		
+		if (gw.getPlayerTank().fireMissile()) {
+			gw.makeMissile(gw.getPlayerTank());
+		}
+		else {
+			System.out.println("Your tank is out of missiles!");
+		}
+	}
+
+	private void fireEnemyMissile() {
+		int rndTank = 0;
+		while (rndTank == 0) {
+			rndTank = gw.getRandomTankNumber();
+		}
+		
+		if (gw.getTankList().get(rndTank).fireMissile()) {
+			gw.makeMissile(gw.getTankList().get(rndTank));
+		}
+		else {
+			System.out.println("The selected tank is out of missiles!");
+		}
+	}
+
+	private void hitByMissile() {
+		if (gw.getMissileList().isEmpty()) {
+			System.out.println("There are no current missiles. Command ignored.");
+		}
+		else {
+			gw.removeObject(gw.getRandomMissile());			
+			gw.hitTank("missile");
+		}
+	}
+
+	private void missileCollision() {
+		if (gw.getMissileList().size() < 2) {
+			System.out.println("Not enough missiles for a collision. Command ignored.");
+		}
+		else {
+			gw.removeObject(gw.getRandomMissile());
+		}
+	}
+
+	private void collide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void elaspeTime() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void displayStates() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void showMap() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void help() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private boolean validateQuit() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+}

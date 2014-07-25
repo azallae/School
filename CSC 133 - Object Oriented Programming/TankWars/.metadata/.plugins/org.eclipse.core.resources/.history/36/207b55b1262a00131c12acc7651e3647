@@ -1,0 +1,7 @@
+package a2;
+
+public interface ISteerable {
+	public void setDirection(int newDirection);
+	public void rightTurn();
+	public void leftTurn();
+}

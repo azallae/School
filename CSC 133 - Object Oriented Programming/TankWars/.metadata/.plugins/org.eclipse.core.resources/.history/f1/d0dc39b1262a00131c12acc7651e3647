@@ -1,0 +1,29 @@
+package a1;
+
+import java.awt.Color;
+
+import a2.LandscapeItem;
+
+public class Rock extends LandscapeItem {
+	private int width, height;
+	
+	public Rock(int x, int y, int w, int h) {
+		locX = x;
+		locY = y;
+		width = w;
+		height = h;
+		myColor = Color.GRAY;
+	}
+	
+	private int getWidth() {
+		return width;
+	}
+	
+	private int getHeight() {
+		return height;
+	}
+	
+	public String toString() {
+		return "Rock: Loc = " + getX() + ", " + getY() + "; Width = " + getWidth() + "; Height = " + getHeight() + "; Color = GRAY";
+	}
+}

@@ -1,0 +1,35 @@
+package a2;
+
+public abstract class MovableItem extends GameObject {
+	private int speed, direction;
+	
+	public void move() {
+		setX(getX() + ((int)Math.cos(getX()) * getSpeed()));
+		setY(getY() + ((int)Math.cos(getY()) * getSpeed()));		
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		if (direction >= 0 && direction <=359) {
+			direction = 5*(Math.round(direction/5));
+			this.direction = direction;
+		}	
+		else {
+			setDirection(direction-360);
+			return;
+		}
+	}
+	
+	
+}

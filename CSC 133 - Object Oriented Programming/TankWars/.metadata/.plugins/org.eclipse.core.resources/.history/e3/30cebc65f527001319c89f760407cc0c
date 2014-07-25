@@ -1,0 +1,51 @@
+package a4;
+
+import java.awt.Color;
+
+import a2.Vehicle;
+
+public class Tank extends Vehicle {
+	private int armorStrength;
+	private int missileCount;
+	
+	public Tank() {
+		armorStrength = 10;
+		missileCount = 10;
+		myColor = Color.CYAN;
+	}
+	
+	public int getArmorStrength() {
+		return armorStrength;
+	}
+	
+	public int getmissileCount() {
+		return missileCount;
+	}
+	
+	public void setArmorStrength(int as) {
+		this.armorStrength = as;		
+	}
+	
+	public void setMissileCount(int mc) {
+		this.missileCount = mc;		
+	}
+	
+	private void hit() {
+		if (armorStrength == 0) {
+			removeSelf();
+		}
+		else {
+			setArmorStrength(armorStrength - 1);
+		}
+	}
+
+	private void fireMissile() {
+		if (missileCount > 0) {
+			Missile m = new Missile(getX(), getY(), getSpeed(), getDirection());
+			setMissileCount(missileCount - 1);
+		}
+		else {
+			System.out.println("Your tank is out of missiles!");
+		}
+	}
+}

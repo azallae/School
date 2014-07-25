@@ -1,0 +1,61 @@
+package a2;
+
+import a1.GameWorld;
+
+public abstract class MovableItem extends GameObject {
+	protected int currSpeed, currDirection;
+	
+	public void setX(int x) {
+		if (x < 0) {
+			this.locX = 0;
+		} 
+		else if (x >= GameWorld.MAXWIDTH) {
+			this.locX = GameWorld.MAXWIDTH - 1;
+		} 
+		else {
+			this.locX= x;
+		}
+	}
+	
+	public void setY(int y) {
+		if (y < 0) {
+			this.locY = 0;
+		} else if (y >= GameWorld.MAXHEIGHT) {
+			this.locY = GameWorld.MAXHEIGHT - 1;
+		} else {
+			this.locY= y;
+		}
+	}
+	
+	public int getSpeed() {
+		return currSpeed;
+	}
+
+	public void setSpeed(int speed) {
+		this.currSpeed = speed;
+	}
+	
+	public void incSpeed(int inc) {
+		setSpeed(getSpeed() + inc);
+	}
+	
+	public void decSpeed(int inc) {
+		int speed = getSpeed() - inc;
+		
+		if (speed < 0) {
+			setSpeed(0);
+		}
+		else {
+			setSpeed(speed);
+		}		
+	}
+
+	public int getDirection() {
+		return currDirection;
+	}	
+	
+	public void move() {
+		setX(getX() + ((int)Math.cos(getX()) * getSpeed()));
+		setY(getY() + ((int)Math.cos(getY()) * getSpeed()));		
+	}
+}

@@ -1,0 +1,37 @@
+package a2;
+
+public class Vehicle extends MovableItem implements ISteerable {
+	private boolean blocked = false;
+	
+	public boolean getBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		if (blocked) {
+			setSpeed(0);
+		}
+		this.blocked = blocked;
+	}
+
+	public void setDirection(int newDirection) {
+		newDirection = newDirection%360;
+		newDirection = 5*(Math.round(newDirection/5));
+		this.currDirection = newDirection;	
+		
+		setBlocked(false);
+		displayDirection();
+	}
+	
+	public void rightTurn() {
+		setDirection(getDirection() + 5);
+		setBlocked(false);
+		displayDirection();
+	}
+
+	public void leftTurn() {
+		setDirection(getDirection() + 355);
+		setBlocked(false);
+		displayDirection();
+	}
+}

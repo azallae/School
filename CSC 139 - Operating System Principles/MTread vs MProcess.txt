@@ -1,0 +1,14 @@
+Cody Lanier
+CSc 139, A2
+
+For these first 2 assignments, the process of multithreading is much faster than a similar 
+multiprocessing approach because there is a lot of overhead required when performing these 
+operations using multiprocessing compared to multithreading. In multiprocessing, all the 
+stored processing data (PCB) is duplicated for each new process that is created. This is 
+where the overheard comes from. Threads can accomplish a task faster, sometimes, because 
+they do not need all this data duplicated. They use shared data and rely on the CPU scheduler 
+to give them each some time to make progress in their threads. That can be a downside of 
+threads, because in a larger application, you may have many threads waiting since only one 
+can use the CPU at once. This can be alleviated by using a multiprocessing solution, where 
+tasks are executed simultaneously rather than executing a piece here and a piece there, as in 
+multithreading. Sometimes the best solution is a mixture of both multiprocessing and multithreading.

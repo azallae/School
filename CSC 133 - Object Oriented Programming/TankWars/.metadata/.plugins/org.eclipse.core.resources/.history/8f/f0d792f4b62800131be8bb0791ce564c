@@ -1,0 +1,237 @@
+package a1;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Random;
+
+import a2.GameObject;
+import a4.*;
+
+public class GameWorld {
+	//hold and manipulate world objects and related game state data
+	public final static int MAXWIDTH = 1024;
+	public final static int MAXHEIGHT = 1024;
+	private int livesRemaining = 3;
+	private int elaspedTime = 0;
+	private int currentScore = 0;
+	private List<GameObject> objList = new ArrayList<GameObject>();
+	private List<Tank> tankList = new ArrayList<Tank>();
+	private List<Missile> missileList = new ArrayList<Missile>();
+	private Tank playerTank;
+	Random rnd = new Random();
+	
+	public GameWorld() {		
+		setupWorld();
+	}
+		
+	public Tank getPlayerTank() {
+		return playerTank;
+	}
+	
+	public List<GameObject> getObjList() {
+		return objList;
+	}
+	
+	public List<Tank> getTankList() {
+		return tankList;
+	}
+	
+	public List<Missile> getMissileList() {
+		return missileList;
+	}
+
+	public int getLivesRemaining() {
+		return livesRemaining;
+	}
+
+	public void setLivesRemaining(int livesRemaining) {
+		this.livesRemaining = livesRemaining;
+	}
+
+	public int getElaspedTime() {
+		return elaspedTime;
+	}
+
+	public void setElaspedTime(int elaspedTime) {
+		this.elaspedTime = elaspedTime;
+	}
+
+	public int getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore) {
+		this.currentScore = currentScore;
+	}
+
+	private void setupWorld() {
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+		int tanks, trees, rocks;
+		
+		System.out.print("How many enemy tanks do you want? ");
+		while(!in.hasNextInt()) {			
+			System.out.println("That is not a valid Integer. Please try again.");
+			System.out.print("How many enemy tanks do you want? ");
+			in.next();
+		}
+		tanks = in.nextInt();
+		
+		System.out.print("How many trees do you want? ");
+		while(!in.hasNextInt()) {			
+			System.out.println("That is not a valid Integer. Please try again.");
+			System.out.print("How many trees do you want? ");
+			in.next();
+		}
+		trees = in.nextInt();
+		
+		System.out.print("How many rocks do you want? ");
+		while(!in.hasNextInt()) {			
+			System.out.println("That is not a valid Integer. Please try again.");
+			System.out.print("How many rocks do you want? ");
+			in.next();
+		}
+		rocks = in.nextInt();
+		
+		populateWorld(tanks, trees, rocks);
+	}
+
+	private void populateWorld(int tanks, int trees, int rocks) {
+		playerTank = new Tank(rnd.nextInt(MAXWIDTH), rnd.nextInt(MAXHEIGHT));
+		tankList.add(playerTank);
+		
+		while (tanks > 0) {
+			//make tanks
+			Tank t = new Tank(rnd.nextInt(MAXWIDTH), rnd.nextInt(MAXHEIGHT));
+			tankList.add(t);
+			tanks--;
+		}
+		while (trees > 0) {
+			//make trees
+			int diameter = 0;
+			while (diameter == 0) {
+				diameter = rnd.nextInt(21);
+			}
+			Tree t = new Tree(rnd.nextInt(MAXWIDTH), rnd.nextInt(MAXHEIGHT), diameter);
+			objList.add(t);
+			trees--;
+		}
+		while (rocks > 0) {
+			//make rocks
+			int width = 0;
+			while (width == 0) {
+				width = rnd.nextInt(21);
+			}
+			int height = 0;
+			while (height == 0) {
+				height = rnd.nextInt(21);
+			}
+			Rock r = new Rock(rnd.nextInt(MAXWIDTH), rnd.nextInt(MAXHEIGHT), width, height);
+			objList.add(r);
+			rocks--;
+		}
+	}
+	
+	public int getRandomTankNumber() {
+		return rnd.nextInt(tankList.size());	
+	}
+	
+	public Missile getRandomMissile() {
+		return missileList.get(rnd.nextInt(missileList.size()));
+	}
+	
+	public void makeMissile(Tank t) {
+		Missile m = new Missile(t.getX(), t.getY(), t.getSpeed(), t.getDirection());
+		missileList.add(m);
+	}
+	
+	public void removeObject(GameObject gObj) {
+		if (gObj instanceof Tank) {
+			tankList.remove(gObj);
+		}
+		else if (gObj instanceof Missile) {
+			missileList.remove(gObj);
+		}
+		else {
+			objList.remove(gObj);
+		}
+	}
+	
+	public void respawnEnemy(Tank enemy) {
+		enemy = new Tank(rnd.nextInt(MAXWIDTH), rnd.nextInt(MAXHEIGHT));
+	}
+
+	public void playerKIA() {
+		if (getLivesRemaining() > 0) {
+			setLivesRemaining(getLivesRemaining() - 1);
+			playerTank = new Tank(rnd.nextInt(MAXWIDTH), rnd.nextInt(MAXHEIGHT));
+			if (getLivesRemaining() == 1) {
+				System.out.println("You have 1 life remaining. Be careful out there!");
+			}
+			else {
+				System.out.println("You have " + getLivesRemaining() + "lives remaining.");
+			}
+			
+		}
+		else {
+			System.out.println("You are out of lives. GAME OVER.");
+			System.exit(0);
+		}
+	}
+
+	public void hitTank(String weapon) {
+		int rndTank = rnd.nextInt(tankList.size());			
+		if (getTankList().get(rndTank).hit()) {
+			if (rndTank == 0) {
+				System.out.println("Your tank has been destroyed by a " + weapon + "!");
+				playerKIA();
+			}
+			else {
+				System.out.println("Tank number " + rndTank + " has been destroyed by a " + weapon + "! A new enemy tank has spawned.");
+				respawnEnemy(getTankList().get(rndTank));
+				setCurrentScore(getCurrentScore() + 20);
+			}
+		}
+		else {
+			int armorStr = getTankList().get(rndTank).getArmorStrength();				
+			if (rndTank == 0) {
+				System.out.println("Your tank has been hit by a " + weapon + "! It's armor strength is now " + armorStr);
+			} else
+				System.out.println("Tank number " + rndTank + " has been hit by a " + weapon + "! It's armor strength is now " + armorStr);
+		}
+	}
+
+	public void tickTock() {
+		for (Tank t : tankList) {
+			if (t.getBlocked()) {
+				System.out.println("A tank is blocked.");
+			}
+			else {
+				t.move();
+			}
+		}
+		
+		for (Missile m : missileList) {
+			m.move();
+			if (m.decLifetime()) {
+				removeObject(m);
+			}
+		}
+		
+		setElaspedTime(getElaspedTime() + 1);		
+	}
+
+	public void displayMap() {
+		System.out.print("Player ");
+		for (Tank t : getTankList()) {
+			System.out.println(t.toString());
+		}
+		for (Missile m : getMissileList()) {
+			System.out.println(m.toString());
+		}
+		for (GameObject g : getObjList()) {
+			System.out.println(g.toString());
+		}
+	}	
+}

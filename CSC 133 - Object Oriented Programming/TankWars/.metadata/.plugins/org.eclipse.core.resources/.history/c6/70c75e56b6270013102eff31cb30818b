@@ -1,0 +1,9 @@
+package a4;
+
+public class Missile {
+	private int lifetime;
+	
+	public Missile() {
+		lifetime = 5;
+	}
+}

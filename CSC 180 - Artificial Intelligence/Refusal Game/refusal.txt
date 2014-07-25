@@ -1,0 +1,14 @@
+a. go to bin directory and then the game directory and type 'java Refusal.java' to run
+b. I have a very simplistic eval and I tried to implement alpha beta pruning, but not sure if I did that correctly. 
+   I was very limitied on time for this project, andI plan to improve the program by the time the tournament starts.
+c. I have it searching 6 plies at the moment, and have that hard-coded for the time being. 
+   I hope to find a way to let the program figure out the best number of plies during runtime.
+d. It is not very string at all. I can kick it's butt right now, but it seems to work correctly without errors for an entire game.
+e. Yes, it is crazy how dumb the eval function is. I can't wait to improve it. 
+f. I have some ideas for different heuristics, but none have been implemented so far. Those will take shape during improvements.
+g. Ironed out all the bugs, to my knowledge.
+h. It does seem to try to prolong the game, even when it is futile for it to.
+i. It only refuses in one situation; when the opponent only has one move. I did have a random refusal in there,
+   but took it out because of the bugs it was inflicting. I will get it working correctly. 
+   Not sure if I want to refuse predetermined moves or just 2 out of 3 randomly or something of that nature, 
+   to try to throw off other's programs. I'll probably try both ways and choose the one that seems to have better outcomes.

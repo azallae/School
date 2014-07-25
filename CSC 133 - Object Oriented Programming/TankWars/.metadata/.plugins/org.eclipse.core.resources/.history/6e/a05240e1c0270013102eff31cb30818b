@@ -1,0 +1,18 @@
+package a4;
+
+import java.awt.Color;
+
+import a2.LandscapeItem;
+
+public class Tree extends LandscapeItem {
+	private int diameter;
+	myColor = Color.green;
+	
+	public Tree(int d) {
+		diameter = d;
+	}
+	
+	private int getDiameter() {
+		return diameter;
+	}
+}

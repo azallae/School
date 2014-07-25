@@ -1,0 +1,1 @@
+msgsnd and msgrcv system calls must be used with message queue to provide/receive services.
