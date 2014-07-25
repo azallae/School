@@ -1,0 +1,92 @@
+/*
+// @author: Garrett Bjerkhoel
+// @copyright: 2009
+-----
+// Initial CSS Reset
+*/
+
+/*
+// I hate you *
+*/
+
+body,table,tr,th,td,dd,dt,dl,p,div,form,input,
+pre,textarea,fieldset,blockquote,ul,ol,li,h1,
+h2,h3,h4 {
+  margin: 0; padding: 0;
+  font-size: 1em;
+}
+h1,h2,h3,h4 {
+  color: #fff;
+}
+
+/*
+// Setup default structure for the page.
+*/
+html { font-size: 125%; }
+body {
+	font: 50%/1.5em "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #fff;
+	-webkit-text-stroke: 1px transparent;
+}
+
+input {
+	color: #666;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+/*
+// Tidy Resets
+*/
+img,a img {
+	border: 0;
+}
+ol,ul {
+	list-style: none;
+}
+h2 span {
+	/*display: none;*/
+}
+
+
+/*
+// Reset all the anchors.
+*/
+
+a {
+	color: #fff;
+	outline: none;
+	text-decoration: none;
+}
+a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+/*
+// Remove all focus styles.
+*/
+
+*:focus {
+	outline: none;
+}
+
+/*
+// Clearfix
+*/
+
+.clearfix:after {
+  content:"."; 
+  display:block; 
+  height:0; 
+  clear:both; 
+  visibility:hidden;
+}
+.clearfix {
+  display:inline-block;
+}
+.clearfix {
+  display:block;
+}
+* html .clearfix {
+  height:0.1em;
+}

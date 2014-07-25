@@ -1,0 +1,29 @@
+/********************************************************************
+* File name:   useraccount.css
+* 
+* Description: This is the global stylesheet for computing / network
+*              account application.
+********************************************************************/
+
+body 
+{
+  background-color: #FFFFFF;
+  background-image: url("images/sealblue_bg.jpg");
+  background-repeat: no-repeat;
+  font: 8pt verdana, arial, sans-serif;
+}
+
+td { font: 8pt verdana, arial, sans-serif; }
+/* td.formField { font-size: 8pt; } */
+td.content { font-size: 10pt; }
+td.fieldLabel { font-size: 13px; }
+td.warning { font-size: 13px; color: #FF0000; }
+
+#appHeading { font-size: 12pt; }
+#appHeadingSmall { font-size: 10pt; }
+#appFooter { font-size: 8pt; }
+
+#smallField, #fieldRequirements, #appFooter { font-size: 11px; }
+#content, #errorText, #formHeading { font-size: 14px; }
+#printedField { text-decoration: underline; }
+#errorText { color: red }

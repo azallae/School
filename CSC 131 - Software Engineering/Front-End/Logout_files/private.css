@@ -1,0 +1,60 @@
+.white-top-border {
+border-top:3px solid #ffffff;
+}
+
+html {
+	background: transparent url(/customerrors//img/global/background.gif);
+}
+
+.maincontainer {
+	border: 3px solid #777777;
+}
+
+h1 {
+	text-align: center;
+	margin: 1em;
+}
+
+.find-it {
+	width: 50%;
+	float: left;
+	margin-left: 4em;
+}
+
+.report-it {
+	width: 33%;
+	position: relative;
+	float: right;
+}
+
+#submit2 {
+	margin: .5em auto;
+	text-align: center;
+	display: block;
+	left: -.95em;
+	position: relative;
+}
+
+.calloutbox {
+		margin-right: 3em;
+}
+
+.calloutbox h2 {
+	font-weight: bold;
+}
+
+ ol {
+	font-size: .875em;
+}
+
+ol li {
+	margin-bottom: .5em;
+}
+
+.calloutbox p {
+	margin-bottom: 1.5em;
+}
+
+.line {
+	margin-bottom: 3em;
+}
